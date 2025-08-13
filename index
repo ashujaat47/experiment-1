@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #1e293b;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #334155;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      cursor: pointer;
+    }
+
+    .sidebar li:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #f1f5f9;
+    }
+
+    footer {
+      background-color: #1e293b;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Admin Portal
+  </header>
+
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li>Dashboard</li>
+        <li>Users</li>
+        <li>Settings</li>
+        <li>Reports</li>
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <h2>Welcome Gourav!</h2>
+      <p>This is the main content area where admin tasks will be displayed.</p>
+    </div>
+  </div>
+
+  <footer>
+    Copyright &copy; 2023 Admin Portal. All rights reserved.. Gourav Sharma is the best
+  </footer>
+
+</body>
+</html>

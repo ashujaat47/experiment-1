@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Banking Interface</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .balance {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #27ae60;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      width: 70%;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #2980b9;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.3s ease;
+      width: 40%;
+    }
+
+    button.deposit {
+      background-color: #27ae60;
+    }
+
+    button.deposit:hover {
+      background-color: #219150;
+    }
+
+    button.withdraw {
+      background-color: #c0392b;
+    }
+
+    button.withdraw:hover {
+      background-color: #992d22;
+    }
+
+    .error {
+      color: #e74c3c;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      min-height: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .container {
+        width: 100%;
+        padding: 20px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Bank</h1>
+    <div class="balance" id="balance">$0.00</div>
+    <input type="number" id="amount" placeholder="Enter amount" min="0" step="0.01" />
+    <div class="buttons">
+      <button class="deposit" id="depositBtn">Deposit</button>
+      <button class="withdraw" id="withdrawBtn">Withdraw</button>
+    </div>
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    const balanceEl = document.getElementById('balance');
+    const amountInput = document.getElementById('amount');
+    const depositBtn = document.getElementById('depositBtn');
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    let balance = 0;
+
+    // Format number as currency
+    function formatCurrency(num) {
+      return '$' + num.toFixed(2);
+    }
+
+    // Update balance display
+    function updateBalance() {
+      balanceEl.textContent = formatCurrency(balance);
+    }
+
+    // Validate input amount
+    function validateAmount(value) {
+      if (value === '') {
+        errorMsg.textContent = 'Please enter an amount.';
+        return false;
+      }
+      const amount = parseFloat(value);
+      if (isNaN(amount) || amount <= 0) {
+        errorMsg.textContent = 'Enter a positive number greater than zero.';
+        return false;
+      }
+      return true;
+    }
+
+    // Deposit handler
+    depositBtn.addEventListener('click', () => {
+      errorMsg.textContent = '';
+      const amountValue = amountInput.value.trim();
+      if (!validateAmount(amountValue)) return;
+
+      const amount = parseFloat(amountValue);
+      balance += amount;
+      updateBalance();
+      amountInput.value = '';
+    });
+
+    // Withdraw handler
+    withdrawBtn.addEventListener('click', () => {
+      errorMsg.textContent = '';
+      const amountValue = amountInput.value.trim();
+      if (!validateAmount(amountValue)) return;
+
+      const amount = parseFloat(amountValue);
+      if (amount > balance) {
+        errorMsg.textContent = 'Insufficient funds.';
+        return;
+      }
+      balance -= amount;
+      updateBalance();
+      amountInput.value = '';
+    });
+
+    // Initialize balance display
+    updateBalance();
+  </script>
+</body>
+</html>
